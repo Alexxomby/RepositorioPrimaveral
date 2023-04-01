@@ -1,0 +1,10 @@
+ create table estudiante(
+boleta int(20) not null ,
+nombre varchar(20) not null,
+appat varchar(20) not null,
+apmat varchar(20) not null,
+edad int(3),
+primary key (boleta),
+key(nombre),
+key(appat));
+

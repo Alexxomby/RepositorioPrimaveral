@@ -1,0 +1,12 @@
+createdatabase alumnosbatiz;
+
+create table alumnos(
+id int not null auto_increment,
+nom varchar(30),
+appt varchar(30),
+apmat varchar(30),
+tel varchar(12),
+edad varchar(3),
+primary key(id),
+key(nom),
+key(appat));
