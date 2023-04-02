@@ -8,6 +8,8 @@ import datetime
 #funcion para decirte si perdiste o ganaste
 #5 generos por jugar
 
+
+#esta difici.? pues claro, si es para batizianos de corazon
 Lista_deportes = ["natacion", "futbol", "equitacion","atletismo", "halterofilia","surf","snowboard","buzkashi","spikeball","eukokanto"]
 Lista_animales = ["zamarrito", "tlacuache", "cacomixtle", "abejaruco", "acantiza", "achichilque", "aguacuajada", "akiapolaau", "garrapata", "gorgoncefalo"]
 Lista_superHeroes = ["batman","acuaman","deadpool","lobezno","amlo","carlostrejo","jminor","sergioramirez","elkomander","armandoalvarez"]
@@ -33,7 +35,8 @@ def AgregrarPalabra():
 def ElegirPalabra(Lista_elegida):
         global azar
         azar = random.choice(Lista_elegida)
-        print(azar)
+        #borrar '#' para ver logica
+        #print(azar)
         return azar
 
 def Guardar_palabra (azar):
@@ -42,7 +45,8 @@ def Guardar_palabra (azar):
     global letra
     for i, letra in enumerate(azar):
         diccionario_respuesta[i + 1] = letra
-    print(diccionario_respuesta)
+        # borrar '#' para ver logica
+    #print(diccionario_respuesta)
     return diccionario_respuesta
 
 def OcultarPalabra(azar):
@@ -54,7 +58,7 @@ def OcultarPalabra(azar):
         return diccionario_palabra
 
 def Num_vidas():
-    joker = 3
+    joker = 5
     batman = 2
     gatubela = 9
 
@@ -91,7 +95,7 @@ def saludo(hora_juego):
     print(f"hola, que tal te va en tu {hora_juego} resplandeciente como el lucero del alba {usuario}")
 
 def A_jugar(letra,diccionario_respuesta,vida,diccionario_palabra):
-
+        usadas = []
         lista_posiciones = []
         global aciertos
         aciertos = 0
@@ -104,21 +108,26 @@ def A_jugar(letra,diccionario_respuesta,vida,diccionario_palabra):
                 for id , letra in diccionario_respuesta.items():
                     if letra.lower() == letraxadivinar:
                         #diccionario_respuesta[id] = letraxadivinar
+                        diccionario_copia= diccionario_palabra.copy()
                         diccionario_palabra[id] = letraxadivinar
                         aciertos += 1
                 print("Adivinasteeee siuu")
-                print("antes estaba asi la palabra", diccionario_palabra)
+                print("antes estaba asi la palabra", diccionario_copia)
                 print(f"afortunadamente la {letraxadivinar} si era")
-                print()
                 print(f"ya actualizado quedo asi", diccionario_palabra)
             else:
+
                 vida -= 1
                 print("letra incock")
+
+                usadas.append(letraxadivinar)
+                usadasactual = usadas.copy()
                 print(diccionario_palabra)
+                print("ya has usado",usadasactual)
             if aciertos == len(diccionario_respuesta):
                 print("ganaste")
-            else:
-                print("ahi pa la otra mi loco")
+        else:
+                print("ahi pa la otra mi loco que por el momento perdiste")
 
 
 
@@ -127,7 +136,8 @@ hora_juego = hora()
 saludo(hora_juego)
 Num_vidas()
 AgregrarPalabra()
-print(Lista_elegida)
+#borrar '#' para ver logica
+#print(Lista_elegida)
 ElegirPalabra(Lista_elegida)
 Guardar_palabra(azar)
 OcultarPalabra(azar)
