@@ -8,7 +8,7 @@ import datetime
 #funcion para decirte si perdiste o ganaste
 #5 generos por jugar
 
-Lista_deportes = ["natacion", "Futbol", "equitacion","atletismo", "halterofilia","surf","snowboard","buzkashi","spikeball","eukokanto"]
+Lista_deportes = ["natacion", "futbol", "equitacion","atletismo", "halterofilia","surf","snowboard","buzkashi","spikeball","eukokanto"]
 Lista_animales = ["zamarrito", "tlacuache", "cacomixtle", "abejaruco", "acantiza", "achichilque", "aguacuajada", "akiapolaau", "garrapata", "gorgoncefalo"]
 Lista_superHeroes = ["batman","acuaman","deadpool","lobezno","amlo","carlostrejo","jminor","sergioramirez","elkomander","armandoalvarez"]
 Lista_flores = ["gardenia","girasol","rosa","orquidea","violeta","acapulco","hortensia","bugambilia","nomeolvides","crisantemo"]
@@ -24,8 +24,6 @@ def AgregrarPalabra():
             return Lista_elegida.extend(Lista_animales)
         elif categoria == "super heroes":
             return Lista_elegida.extend(Lista_superHeroes)
-        elif categoria == "animales":
-            return Lista_elegida.extend(Lista_animales)
         elif categoria == "flores":
             return Lista_elegida.extend(Lista_flores)
         elif categoria == "colores":
@@ -48,6 +46,7 @@ def Guardar_palabra (azar):
     return diccionario_respuesta
 
 def OcultarPalabra(azar):
+        global diccionario_palabra
         diccionario_palabra = {}
         for posicion, letra in enumerate(azar):
             diccionario_palabra[posicion + 1] = "_"
@@ -91,24 +90,35 @@ def saludo(hora_juego):
     usuario = os.getlogin()
     print(f"hola, que tal te va en tu {hora_juego} resplandeciente como el lucero del alba {usuario}")
 
-def A_jugar(letra,diccionario_respuesta,vida):
+def A_jugar(letra,diccionario_respuesta,vida,diccionario_palabra):
 
-    lista_posiciones = []
-    global aciertos
-    aciertos = 0
-    while vida != 0 and aciertos <len(diccionario_respuesta):
-        print("que letra crees que se encuentre en esta bella palabra")
-        print(f"aprovecha que aun te quedan {vida} vidas")
-        comillas = input().lower()
-        letraxadivinar = "'"+ comillas +"'"
-        if letraxadivinar in diccionario_respuesta.values():
-
-            for id , letr in diccionario_respuesta.items():
-                if letra.lower() == letraxadivinar:
-                    diccionario_respuesta[id] = letraxadivinar
-                    aciertos+=1
-            print(diccionario_respuesta)
-        else
+        lista_posiciones = []
+        global aciertos
+        aciertos = 0
+        while vida > 0 and aciertos < len(diccionario_respuesta):
+            print("que letra crees que se encuentre en esta bella palabra")
+            print(f"aprovecha que aun te quedan {vida} vidas")
+            comillas = input().lower()
+            letraxadivinar = comillas
+            if letraxadivinar in diccionario_respuesta.values():
+                for id , letra in diccionario_respuesta.items():
+                    if letra.lower() == letraxadivinar:
+                        #diccionario_respuesta[id] = letraxadivinar
+                        diccionario_palabra[id] = letraxadivinar
+                        aciertos += 1
+                print("Adivinasteeee siuu")
+                print("antes estaba asi la palabra", diccionario_palabra)
+                print(f"afortunadamente la {letraxadivinar} si era")
+                print()
+                print(f"ya actualizado quedo asi", diccionario_palabra)
+            else:
+                vida -= 1
+                print("letra incock")
+                print(diccionario_palabra)
+            if aciertos == len(diccionario_respuesta):
+                print("ganaste")
+            else:
+                print("ahi pa la otra mi loco")
 
 
 
@@ -121,7 +131,7 @@ print(Lista_elegida)
 ElegirPalabra(Lista_elegida)
 Guardar_palabra(azar)
 OcultarPalabra(azar)
-A_jugar(letra,diccionario_respuesta,vida)
+A_jugar(letra,diccionario_respuesta,vida,diccionario_palabra)
 
 #clonar la lista que tiene las letras, comparar con una funcionm si dicho diccionario
 #tiene ese letra, si si , va a guardar el indice donde se detecto la coicidencia
